@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Interaction</title>
+    <!-- Include any CSS styles here if needed -->
+    <style>
+        /* Define CSS styles for your map and circle if needed */
+        #map {
+            width: 500px; /* Set the desired width */
+            height: 500px; /* Set the desired height */
+            background-image: url(https://i.ibb.co/qNt540p/united-states-map-with-state-names.jpg'); /* Replace with your map image URL */
+            background-size: cover;
+            position: relative;
+        }
+
+        #circle {
+            position: absolute;
+            background-color: rgba(0, 0, 255, 0.3); /* Adjust color and opacity as needed */
+            border-radius: 50%; /* Make it circular */
+            pointer-events: none; /* Allow clicks to pass through to the map */
+        }
+    </style>
+</head>
+<body>
+    <div id="map">
+        <div id="circle"></div>
+    </div>
+    <input type="range" id="slider" min="10" max="100" step="10" value="10">
+    <script>
+        // Initialize the circle radius
+        var circleRadius = 10; // Initial radius value (set to 10)
+
+        // Add a listener for map clicks
+        var map = document.getElementById('map');
+        map.addEventListener('click', function(event) {
+            // Get the click coordinates
+            var x = event.clientX - map.getBoundingClientRect().left;
+            var y = event.clientY - map.getBoundingClientRect().top;
+
+            // Update the circle's position based on the click coordinates
+            var circle = document.getElementById('circle');
+            circle.style.left = x - circleRadius + 'px';
+            circle.style.top = y - circleRadius + 'px';
+        });
+
+        // Add a listener for slider value changes
+        var slider = document.getElementById('slider');
+        slider.addEventListener('input', function() {
+            // Update the circle radius based on the slider value
+            circleRadius = parseInt(slider.value);
+
+            // Update the circle's size
+            var circle = document.getElementById('circle');
+            circle.style.width = 2 * circleRadius + 'px';
+            circle.style.height = 2 * circleRadius + 'px';
+        });
+    </script>
+</body>
+</html>
